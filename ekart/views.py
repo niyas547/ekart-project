@@ -67,7 +67,7 @@ class ProductView(ViewSet):
         else:
             return Response(data=serializer.errors)
 
-    # localhost:8000/ekart/products/1/add_review
+    # localhost:8000/ekart/products/1/add_review/
     @action(methods=["POST"],detail=True)
     def add_review(self,request,*args,**kwargs):
         pid=kwargs.get("pk")
@@ -79,6 +79,17 @@ class ProductView(ViewSet):
             return Response(data=serializer.data)
         else:
             return Response(data=serializer.errors)
+
+    #localhost/ekart/products/id/get_review/
+    @action(methods=["GET"],detail=True)
+    def get_reviews(self,request,*args,**kwargs):
+        pid=kwargs.get("pk")
+        product=Products.objects.get(id=pid)
+        review=product.review_set.all()
+        serializer=ReviewSerializer(review,many=True)
+        return Response (data=serializer.data)
+
+
 
 
 class CartView(ModelViewSet):

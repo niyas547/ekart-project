@@ -47,7 +47,7 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         return User.objects.create_user(**validated_data)
 
-class ReviewSerializer(serializers.Serializer):
+class ReviewSerializer(serializers.ModelSerializer):
     user=serializers.CharField(read_only=True)
     product=serializers.CharField(read_only=True)
     class Meta:

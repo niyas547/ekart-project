@@ -37,7 +37,7 @@ class Review(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     product=models.ForeignKey(Products,on_delete=models.CASCADE)
     comment=models.CharField(max_length=200)
-    rating=models.FloatField(default=3.5,null=True)
+    rating=models.FloatField(validators=[MinValueValidator(1),MaxValueValidator(5)],null=True)
 
 
 
@@ -45,4 +45,4 @@ class Review(models.Model):
         unique_together=("user","product")
 
 
-#validators=[MinValueValidator(1),MaxValueValidator(5)],null=True
+#
